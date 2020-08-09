@@ -1,0 +1,75 @@
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="title">
+            记事本
+        </div>
+        <hr>
+        <div>
+            <span>
+                <p style="color: red">请输入内容：
+                    <input type="text" placeholder="按回车保存" class="inp" v-model="tmp" @keyup.enter="add">
+                </p>
+            </span>
+        </div>
+        <hr>
+        <div class="content">
+            <ul>
+                <li v-for="(item, index) in message">
+                    <div class="li-div">
+                        <span>{{index+1}}</span>
+                        <label>{{item}}</label>
+                        <button @click="remove(index)">删除</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <hr>
+        <div v-show="message.length>0">
+            <div style="float: left;">
+                当前记事本记录数：{{message.length}}
+            </div>
+            <div style="float: right;;">
+                <button @click="clear">清空</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                tmp: "",
+                message: ['吃饭', '睡觉', '打豆豆'],
+            },
+            methods: {
+                add: function () {
+                    if (this.tmp == null || this.tmp == "") {
+                        alert("输入不能为空");
+                    } else {
+                        this.message.push(this.tmp);
+                    }
+                },
+                remove: function (ind) {
+                    var flag = confirm("是否要删除");
+                    if (flag == true) {
+                        this.message.splice(ind, 1);
+                    }
+                },
+                clear: function () {
+                    this.message = [];
+                },
+            },
+        })
+    </script>
+</body>
+
+</html>
+
+
+</html>
